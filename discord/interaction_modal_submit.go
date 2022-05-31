@@ -92,3 +92,25 @@ func (d ModalSubmitInteractionData) Text(customID CustomID) string {
 	}
 	return ""
 }
+
+func (d ModalSubmitInteractionData) SelectMenuComponent(customID CustomID) (SelectMenuComponent, bool) {
+	if component, ok := d.Component(customID); ok {
+		selectMenuComponent, ok := component.(SelectMenuComponent)
+		return selectMenuComponent, ok
+	}
+	return SelectMenuComponent{}, false
+}
+
+func (d ModalSubmitInteractionData) OptValues(customID CustomID) ([]string, bool) {
+	if selectMenuComponent, ok := d.SelectMenuComponent(customID); ok {
+		return selectMenuComponent.Values, true
+	}
+	return nil, false
+}
+
+func (d ModalSubmitInteractionData) Values(customID CustomID) []string {
+	if text, ok := d.OptValues(customID); ok {
+		return text
+	}
+	return nil
+}

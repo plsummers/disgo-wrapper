@@ -363,6 +363,9 @@ type SelectMenuComponent struct {
 	MaxValues   int                `json:"max_values,omitempty"`
 	Disabled    bool               `json:"disabled,omitempty"`
 	Options     []SelectMenuOption `json:"options,omitempty"`
+
+	// Values is only set when the SelectMenuComponent is received from an InteractionTypeModalSubmit
+	Values []string `json:"values,omitempty"`
 }
 
 func (c SelectMenuComponent) MarshalJSON() ([]byte, error) {
